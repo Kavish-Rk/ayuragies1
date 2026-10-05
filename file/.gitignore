@@ -1,0 +1,4 @@
+﻿public/apk/*.apk
+public/apk/*.sha1
+.vercel
+.env*

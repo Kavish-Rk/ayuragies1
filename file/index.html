@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SAMVEDNA — AI-Assisted Wearable Screening for Early Knee Osteoarthritis Risk | SIH 2026</title>
+<meta name="description" content="SAMVEDNA is an AI-assisted wearable knee band + offline-first mobile app for early osteoarthritis risk screening. Non-invasive, accessible screening for remote and underserved populations. SIH 2026.">
+<meta name="keywords" content="SAMVEDNA, SIH 2026, osteoarthritis, knee screening, wearable, AI, ESP32, acoustic sensing, healthcare">
+<meta property="og:title" content="SAMVEDNA — AI-Assisted Wearable Screening">
+<meta property="og:description" content="Wearable knee band + mobile app for early knee OA risk screening. Offline-first, AI-assisted, built for Bharat.">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/png" href="public/images/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>tailwind.config={theme:{extend:{fontFamily:{sans:['Inter','system-ui','sans-serif'],mono:['JetBrains Mono','monospace']},colors:{brand:{50:'#f0fdfa',100:'#ccfbf1',500:'#14b8a6',600:'#0d9488',700:'#0f766e',800:'#115e59',900:'#134e4a'}}}}}</script>
+<style>html{scroll-behavior:smooth}*{ -webkit-font-smoothing:antialiased} .glass{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)} .reveal{opacity:0;transform:translateY(14px);transition:all .6s cubic-bezier(.16,1,.3,1)} .reveal.in{opacity:1;transform:none}</style>
+</head>
+<body class="bg-white text-slate-900 font-sans antialiased overflow-x-hidden">
+<!-- NAV -->
+<nav id="nav" class="fixed top-0 w-full z-50 bg-white/80 glass border-b border-slate-200/60">
+  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 h-[64px] flex items-center justify-between">
+    <a href="#" class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-xl bg-brand-700 flex items-center justify-center text-white"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/><circle cx="12" cy="12" r="10" opacity=".15" fill="currentColor" stroke="none"/></svg></div>
+      <div><div class="font-extrabold tracking-tight leading-none text-[15px]">SAMVEDNA</div><div class="text-[11px] tracking-widest font-semibold text-slate-500 -mt-0.5">SIH 2026 • PS 26004</div></div>
+    </a>
+    <div class="hidden lg:flex items-center gap-7 text-[14px] font-medium text-slate-600">
+      <a href="#problem" class="hover:text-slate-900">Problem</a>
+      <a href="#solution" class="hover:text-slate-900">Solution</a>
+      <a href="#wearable" class="hover:text-slate-900">Wearable</a>
+      <a href="#mobile" class="hover:text-slate-900">App</a>
+      <a href="#research" class="hover:text-slate-900">Research</a>
+    </div>
+    <div class="flex items-center gap-2">
+      <a href="#download" class="hidden sm:inline-flex items-center gap-2 bg-slate-900 text-white px-4 py-2 rounded-full text-[13px] font-semibold hover:bg-black transition">Download APK <span class="w-5 h-5 rounded-full bg-white/15 flex items-center justify-center text-[12px]">↓</span></a>
+      <button id="menuBtn" class="lg:hidden w-9 h-9 rounded-xl border border-slate-200 flex items-center justify-center">☰</button>
+    </div>
+  </div>
+  <div id="mobileMenu" class="hidden lg:hidden border-t border-slate-200 bg-white px-4 py-4 space-y-3">
+    <a href="#problem" class="block py-2 font-medium">Problem</a><a href="#solution" class="block py-2 font-medium">Solution</a><a href="#wearable" class="block py-2 font-medium">Wearable</a><a href="#mobile" class="block py-2 font-medium">App</a><a href="#download" class="block w-full text-center bg-brand-700 text-white py-3 rounded-xl font-semibold">Download APK</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="pt-[64px] relative overflow-hidden">
+  <div class="absolute inset-0 -z-10 bg-gradient-to-b from-brand-50 via-white to-white"></div>
+  <div class="absolute -top-24 -right-24 w-[520px] h-[520px] bg-brand-100 rounded-full blur-[90px] opacity-60 -z-10"></div>
+  <div class="absolute top-40 -left-24 w-[380px] h-[380px] bg-teal-50 rounded-full blur-[80px] opacity-70 -z-10"></div>
+  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-[56px] grid lg:grid-cols-[1.05fr_0.95fr] gap-10 items-center">
+    <div class="reveal">
+      <div class="inline-flex items-center gap-2 text-[12px] font-semibold tracking-widest text-brand-700 bg-brand-50 border border-brand-100 rounded-full px-3 py-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> OFFLINE-FIRST • NO INTERNET REQUIRED</div>
+      <h1 class="mt-5 text-[32px] sm:text-[42px] lg:text-[48px] font-extrabold tracking-[-0.03em] leading-[0.95]"><span class="text-brand-700">SAMVEDNA</span></h1>
+      <p class="mt-3 text-[18px] sm:text-[20px] font-semibold tracking-tight text-slate-800">AI-Assisted Wearable Screening for Early Knee Osteoarthritis Risk</p>
+      <p class="mt-3 text-[15px] leading-6 text-slate-600 max-w-[560px]">An integrated wearable knee-band + offline-first mobile app that captures acoustic, motion and pressure signals, fuses them on-device, and produces a <span class="font-semibold text-slate-900">screening risk indication</span> — designed for remote and underserved populations.</p>
+      <div class="mt-7 flex flex-wrap gap-3">
+        <a href="https://github.com/Kanis007/samvedna/releases/download/v1.0.0/SAMVEDNA-v1.0.0.apk" class="inline-flex items-center gap-3 bg-brand-700 hover:bg-brand-800 text-white px-6 py-3.5 rounded-full font-semibold text-[14px] transition shadow-[0_8px_24px_rgba(15,118,110,.25)]"><span class="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center">↓</span> Download APK <span class="opacity-80 font-normal">• 75 MB • v1.0.0</span></a>
+        <a href="#solution" class="inline-flex items-center gap-2 bg-white border border-slate-200 hover:border-slate-300 px-6 py-3.5 rounded-full font-semibold text-[14px] transition">Explore the Solution →</a>
+      </div>
+      <div class="mt-6 flex flex-wrap gap-4 text-[12px] font-medium text-slate-500">
+        <span class="inline-flex items-center gap-1.5"><span class="w-6 h-6 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-700 text-[11px]">✓</span> Works offline</span>
+        <span class="inline-flex items-center gap-1.5"><span class="w-6 h-6 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-700 text-[11px]">✓</span> On-device AI</span>
+        <span class="inline-flex items-center gap-1.5"><span class="w-6 h-6 rounded-full bg-emerald-50 border border-emerald-200 flex items-center justify-center text-emerald-700 text-[11px]">✓</span> Encrypted SQLite</span>
+      </div>
+      <p class="mt-3 text-[12px] text-slate-500">SIH 2026 — Problem Statement 26004 • Not a medical device — screening aid for demonstration</p>
+    </div>
+    <!-- Visual -->
+    <div class="reveal lg:pl-6 relative">
+      <div class="relative mx-auto w-full max-w-[520px]">
+        <!-- Phone mockup + wearable card -->
+        <div class="relative bg-gradient-to-br from-slate-900 to-slate-800 rounded-[32px] p-3 shadow-[0_24px_64px_rgba(0,0,0,.2)]">
+          <div class="bg-white rounded-[24px] overflow-hidden">
+            <div class="h-7 flex items-center justify-between px-4 text-[11px] font-semibold text-slate-500"><span>9:41</span><span class="flex gap-1"><span class="w-4 h-2.5 rounded-sm bg-slate-900"></span><span class="w-4 h-2.5 rounded-sm border border-slate-300"></span></span></div>
+            <div class="px-5 pb-5">
+              <div class="bg-gradient-to-br from-brand-700 to-teal-600 rounded-2xl p-5 text-white relative overflow-hidden">
+                <div class="absolute -right-6 -top-6 w-24 h-24 bg-white/10 rounded-full"></div>
+                <div class="text-[11px] tracking-widest opacity-80 font-semibold">SAMVEDNA</div>
+                <div class="mt-1 font-bold text-[18px] leading-none">Ready for screening</div>
+                <div class="mt-1 text-[12px] opacity-80">Wear the band • Connect • Perform guided movements</div>
+                <div class="mt-4 flex gap-2"><span class="bg-white text-brand-700 px-3 py-1.5 rounded-full text-[12px] font-bold">● Connected</span><span class="bg-white/15 px-3 py-1.5 rounded-full text-[12px] font-semibold">Mock • DEMO</span></div>
+              </div>
+              <div class="mt-4 grid grid-cols-2 gap-3">
+                <div class="rounded-2xl border border-slate-100 p-3"><div class="text-[11px] text-slate-500 font-semibold">Today</div><div class="font-extrabold text-[22px]">6</div><div class="text-[11px] text-slate-500">screenings</div></div>
+                <div class="rounded-2xl border border-slate-100 p-3"><div class="text-[11px] text-slate-500 font-semibold">High risk</div><div class="font-extrabold text-[22px] text-red-600">2</div><div class="text-[11px] text-slate-500">flagged for review</div></div>
+              </div>
+              <div class="mt-3 rounded-2xl bg-amber-50 border border-amber-200 p-3 flex gap-2 items-start"><span class="mt-0.5">⚡</span><div class="text-[12px] leading-4"><span class="font-bold">Demo mode</span> — simulated sensor data, clearly labelled</div></div>
+            </div>
+          </div>
+          <!-- Floating wearable pill -->
+          <div class="absolute -left-4 -bottom-4 sm:left-2 sm:bottom-6 bg-white rounded-2xl shadow-[0_12px_32px_rgba(0,0,0,.12)] border border-slate-100 p-3 flex items-center gap-3">
+            <div class="w-11 h-11 rounded-xl bg-slate-900 text-white flex items-center justify-center">◈</div>
+            <div><div class="text-[12px] font-bold leading-none">Wearable Knee Band</div><div class="text-[11px] text-slate-500">ESP32 • BLE • Acoustic + IMU + Pressure</div><div class="text-[11px] text-emerald-600 font-semibold">● Calibrated</div></div>
+          </div>
+          <!-- Floating risk card -->
+          <div class="absolute -right-2 top-10 bg-white rounded-2xl shadow-[0_12px_32px_rgba(0,0,0,.12)] border border-slate-100 px-4 py-3 hidden sm:block">
+            <div class="text-[10px] tracking-widest font-bold text-slate-400">RISK SCREENING</div>
+            <div class="font-extrabold text-amber-600">Moderate Risk</div>
+            <div class="text-[11px] text-slate-500">Confidence 71% • demo-rule-v1</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem" class="py-14 lg:py-20 bg-slate-50 border-y border-slate-100">
+  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-[720px]">
+      <div class="text-[12px] tracking-[0.14em] font-bold text-brand-700">THE PROBLEM</div>
+      <h2 class="mt-2 text-[28px] sm:text-[32px] font-extrabold tracking-tight leading-none">Early knee OA is hard to catch — especially far from a hospital.</h2>
+      <p class="mt-3 text-[15px] leading-6 text-slate-600">Osteoarthritis of the knee develops silently. By the time pain limits daily life, options narrow. Conventional assessment depends on specialist examination and imaging — not easily available in remote or underserved settings.</p>
+    </div>
+    <div class="mt-8 grid md:grid-cols-3 gap-5">
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 reveal"><div class="w-10 h-10 rounded-xl bg-red-50 border border-red-100 flex items-center justify-center">◉</div><h3 class="mt-4 font-bold">Silent progression</h3><p class="mt-1.5 text-[13px] leading-5 text-slate-600">Early cartilage changes show subtle signs that are easy to miss without targeted screening.</p></div>
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 reveal"><div class="w-10 h-10 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center">◎</div><h3 class="mt-4 font-bold">Access gap</h3><p class="mt-1.5 text-[13px] leading-5 text-slate-600">Specialist clinics and imaging are concentrated in cities — difficult to take to villages and camps.</p></div>
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 reveal"><div class="w-10 h-10 rounded-xl bg-sky-50 border border-sky-100 flex items-center justify-center">⬢</div><h3 class="mt-4 font-bold">Need for screening aid</h3><p class="mt-1.5 text-[13px] leading-5 text-slate-600">A non-invasive, portable, offline-capable screening aid can flag at-risk individuals for clinical follow-up.</p></div>
+    </div>
+    <div class="mt-6 rounded-xl bg-amber-50 border border-amber-200 px-4 py-3 text-[12px] leading-5 text-amber-900"><span class="font-bold">No medical claim:</span> SAMVEDNA is a screening aid for demonstration, not a diagnosis. Clinical assessment must follow standard care.</div>
+  </div>
+</section>
+
+<!-- SOLUTION WORKFLOW -->
+<section id="solution" class="py-14 lg:py-20">
+  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-[760px] mx-auto">
+      <div class="text-[12px] tracking-[0.14em] font-bold text-brand-700">OUR SOLUTION</div>
+      <h2 class="mt-2 text-[28px] sm:text-[34px] font-extrabold tracking-tight">Wearable → Phone → AI → Risk screening</h2>
+      <p class="mt-3 text-[15px] text-slate-600">An integrated system where the knee band streams sensor data to the phone, which fuses and analyses it on-device.</p>
+    </div>
+    <div class="mt-10 relative">
+      <div class="hidden lg:block absolute top-[34px] left-[8%] right-[8%] h-px bg-slate-200"></div>
+      <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+        <div class="relative bg-white rounded-2xl border border-slate-200 p-5 text-center reveal"><div class="w-12 h-12 mx-auto rounded-xl bg-slate-900 text-white flex items-center justify-center">◈</div><div class="mt-3 text-[11px] tracking-widest font-bold text-slate-400">01</div><div class="font-bold text-[14px]">Wearable Band</div><div class="text-[12px] text-slate-600 leading-4 mt-1">ESP32 knee band with acoustic, IMU & pressure sensors</div></div>
+        <div class="relative bg-white rounded-2xl border border-slate-200 p-5 text-center reveal"><div class="w-12 h-12 mx-auto rounded-xl bg-brand-700 text-white flex items-center justify-center">≋</div><div class="mt-3 text-[11px] tracking-widest font-bold text-slate-400">02</div><div class="font-bold text-[14px]">Sensor Data</div><div class="text-[12px] text-slate-600 leading-4 mt-1">High-rate waveforms via BLE + local Wi-Fi SoftAP</div></div>
+        <div class="relative bg-white rounded-2xl border border-slate-200 p-5 text-center reveal"><div class="w-12 h-12 mx-auto rounded-xl bg-white border border-slate-200 flex items-center justify-center">▣</div><div class="mt-3 text-[11px] tracking-widest font-bold text-slate-400">03</div><div class="font-bold text-[14px]">Mobile App</div><div class="text-[12px] text-slate-600 leading-4 mt-1">Guides protocol, captures, stores encrypted on phone</div></div>
+        <div class="relative bg-white rounded-2xl border border-slate-200 p-5 text-center reveal"><div class="w-12 h-12 mx-auto rounded-xl bg-violet-600 text-white flex items-center justify-center">✦</div><div class="mt-3 text-[11px] tracking-widest font-bold text-slate-400">04</div><div class="font-bold text-[14px]">AI Analysis</div><div class="text-[12px] text-slate-600 leading-4 mt-1">Feature extraction + sensor fusion + demo risk model</div></div>
+        <div class="relative bg-gradient-to-br from-brand-700 to-teal-600 rounded-2xl p-5 text-center text-white reveal"><div class="w-12 h-12 mx-auto rounded-xl bg-white/15 flex items-center justify-center">⬢</div><div class="mt-3 text-[11px] tracking-widest font-bold text-white/80">05</div><div class="font-bold text-[14px]">Risk Screening</div><div class="text-[12px] text-white/80 leading-4 mt-1">Low / Moderate / High + confidence & contributors</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WEARABLE TECHNOLOGY -->
+<section id="wearable" class="py-14 lg:py-20 bg-slate-50 border-y border-slate-100">
+  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
+      <div><div class="text-[12px] tracking-[0.14em] font-bold text-brand-700">WEARABLE TECHNOLOGY</div><h2 class="mt-2 text-[28px] font-extrabold tracking-tight">Built around real sensors</h2><p class="mt-2 text-[14px] text-slate-600 max-w-[560px]">No invented specs — only the modalities already implemented / planned in the project.</p></div>
+      <div class="text-[12px] font-mono bg-white border border-slate-200 rounded-full px-3 py-1.5 inline-flex self-start">ESP32 • GATT 0000a100-… • 192.168.4.1:8080</div>
+    </div>
+    <div class="mt-8 grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 reveal"><div class="w-10 h-10 rounded-xl bg-teal-50 border border-teal-100 flex items-center justify-center">♪</div><h3 class="mt-4 font-bold">Acoustic sensing</h3><p class="mt-1.5 text-[13px] leading-5 text-slate-600">Contact microphone captures knee acoustic emissions during sit-stand-sit. Features: hits, amplitude, duration, energy, signal strength.</p><div class="mt-3 text-[11px] font-mono text-slate-500">AE hits • dB • ms • fJ</div></div>
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 reveal"><div class="w-10 h-10 rounded-xl bg-violet-50 border border-violet-100 flex items-center justify-center">◐</div><h3 class="mt-4 font-bold">IMU / Motion</h3><p class="mt-1.5 text-[13px] leading-5 text-slate-600">Range of motion, cadence, angular velocity, stride symmetry & gait phase from inertial sensing.</p><div class="mt-3 text-[11px] font-mono text-slate-500">ROM • Symmetry • Phase</div></div>
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 reveal"><div class="w-10 h-10 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center">⬢</div><h3 class="mt-4 font-bold">Pressure sensing</h3><p class="mt-1.5 text-[13px] leading-5 text-slate-600">Plantar / load distribution: asymmetry, stance %, loading rate — correlates with joint loading.</p><div class="mt-3 text-[11px] font-mono text-slate-500">Asymmetry • Stance %</div></div>
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 reveal"><div class="w-10 h-10 rounded-xl bg-slate-900 text-white flex items-center justify-center">≋</div><h3 class="mt-4 font-bold">BLE + Wi-Fi • ESP32</h3><p class="mt-1.5 text-[13px] leading-5 text-slate-600">BLE for commands / credentials / telemetry; high-rate waveforms over local Wi-Fi SoftAP. Mock ↔ Real switched by <span class="font-mono">HARDWARE_MODE</span>.</p><div class="mt-3 text-[11px] font-mono text-slate-500">BLE • SoftAP • Mock/Real</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- AI SENSOR FUSION -->
+<section class="py-14 lg:py-20">
+  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-2 gap-10 items-start">
+      <div>
+        <div class="text-[12px] tracking-[0.14em] font-bold text-brand-700">AI / SENSOR FUSION</div>
+        <h2 class="mt-2 text-[28px] font-extrabold tracking-tight">Multimodal signals → one screening decision</h2>
+        <p class="mt-3 text-[14px] leading-6 text-slate-600">The phone extracts biomarkers from each sensor, fuses them, and runs a locally-stored risk model — no cloud needed. Swap the <span class="font-mono text-[12px] bg-slate-100 px-1.5 py-0.5 rounded">demo-rule-v1</span> for a trained model without changing the app.</p>
+        <div class="mt-6 flex flex-wrap gap-2 text-[12px]"><span class="px-3 py-1.5 rounded-full bg-slate-900 text-white font-semibold">Screening</span><span class="px-3 py-1.5 rounded-full bg-white border border-slate-200">Risk assessment</span><span class="px-3 py-1.5 rounded-full bg-white border border-slate-200">Early indication</span><span class="px-3 py-1.5 rounded-full bg-white border border-slate-200">Decision support</span></div>
+        <p class="mt-4 text-[12px] text-slate-500">Terminology is intentionally screening-oriented — never a definitive diagnosis.</p>
+      </div>
+      <div class="bg-white rounded-[20px] border border-slate-200 p-6 lg:p-7 reveal">
+        <div class="space-y-3">
+          <div class="flex gap-3"><div class="w-9 h-9 rounded-xl bg-slate-900 text-white flex items-center justify-center text-[12px] font-bold">1</div><div class="flex-1 rounded-xl bg-slate-50 border border-slate-200 px-4 py-3"><div class="text-[13px] font-bold">Sensor Signals</div><div class="text-[12px] text-slate-600">Acoustic • IMU • Pressure (time-series)</div></div></div>
+          <div class="ml-[18px] w-px h-4 bg-slate-200"></div>
+          <div class="flex gap-3"><div class="w-9 h-9 rounded-xl bg-brand-700 text-white flex items-center justify-center text-[12px] font-bold">2</div><div class="flex-1 rounded-xl bg-white border border-slate-200 px-4 py-3 shadow-sm"><div class="text-[13px] font-bold">Feature Extraction</div><div class="text-[12px] text-slate-600">Hits, amplitude, ROM, symmetry, loading asymmetry…</div></div></div>
+          <div class="ml-[18px] w-px h-4 bg-slate-200"></div>
+          <div class="flex gap-3"><div class="w-9 h-9 rounded-xl bg-brand-700 text-white flex items-center justify-center text-[12px] font-bold">3</div><div class="flex-1 rounded-xl bg-brand-50 border border-brand-200 px-4 py-3"><div class="text-[13px] font-bold">Sensor Fusion</div><div class="text-[12px] text-slate-600">Combine acoustic + motion + pressure biomarkers</div></div></div>
+          <div class="ml-[18px] w-px h-4 bg-slate-200"></div>
+          <div class="flex gap-3"><div class="w-9 h-9 rounded-xl bg-violet-600 text-white flex items-center justify-center text-[12px] font-bold">4</div><div class="flex-1 rounded-xl bg-violet-50 border border-violet-200 px-4 py-3"><div class="text-[13px] font-bold">AI / ML Analysis</div><div class="text-[12px] text-slate-600">On-device model (<span class="font-mono">demo-rule-v1</span> placeholder) → tier + confidence</div></div></div>
+          <div class="ml-[18px] w-px h-4 bg-slate-200"></div>
+          <div class="flex gap-3"><div class="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center">✓</div><div class="flex-1 rounded-xl bg-emerald-50 border border-emerald-200 px-4 py-3"><div class="text-[13px] font-bold">Risk Screening</div><div class="text-[12px] text-slate-600"><span class="inline-flex gap-1.5"><span class="px-2 py-0.5 rounded-full bg-emerald-600 text-white text-[11px] font-bold">Low</span><span class="px-2 py-0.5 rounded-full bg-amber-500 text-white text-[11px] font-bold">Moderate</span><span class="px-2 py-0.5 rounded-full bg-red-600 text-white text-[11px] font-bold">High</span></span> + contributors</div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MOBILE APPLICATION -->
+<section id="mobile" class="py-14 lg:py-20 bg-slate-50 border-y border-slate-100">
+  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col lg:flex-row justify-between gap-6">
+      <div><div class="text-[12px] tracking-[0.14em] font-bold text-brand-700">MOBILE APPLICATION</div><h2 class="mt-2 text-[28px] font-extrabold tracking-tight">The app that health workers actually use</h2><p class="mt-2 text-[14px] text-slate-600 max-w-[560px]">Offline-first, encrypted, multilingual (EN / HI / AS / TA). Screenshots below are from the real Flutter app — or placeholder until you capture them.</p></div>
+      <a href="https://github.com/Kanis007/samvedna/releases/download/v1.0.0/SAMVEDNA-v1.0.0.apk" class="self-start inline-flex items-center gap-2 bg-slate-900 text-white px-5 py-3 rounded-full text-[14px] font-semibold">Download APK ↓</a>
+    </div>
+    <div class="mt-8 grid lg:grid-cols-[1.1fr_0.9fr] gap-6">
+      <div class="bg-slate-900 rounded-[20px] p-4 sm:p-6 flex gap-4 items-center overflow-hidden reveal">
+        <div class="hidden sm:block w-[220px] shrink-0 bg-white rounded-[20px] p-3">
+          <div class="h-6 flex items-center justify-between text-[10px] font-bold text-slate-400"><span>9:41</span><span>● ●</span></div>
+          <div class="bg-gradient-to-br from-brand-700 to-teal-600 rounded-xl p-4 text-white"><div class="text-[10px] tracking-widest opacity-80">SCREENING</div><div class="font-bold">Sit-Stand-Sit</div><div class="text-[11px] opacity-80 mt-1">Follow the metronome • 3 cycles</div><div class="mt-3 bg-white text-brand-700 px-3 py-2 rounded-full text-[12px] font-bold text-center">● Recording...</div></div>
+          <div class="mt-3 space-y-2"><div class="h-10 rounded-xl bg-slate-50 border border-slate-100"></div><div class="h-10 rounded-xl bg-slate-50 border border-slate-100"></div></div>
+        </div>
+        <div class="flex-1 text-white">
+          <div class="text-[12px] tracking-widest font-bold text-white/60">SCREENSHOTS</div>
+          <h3 class="mt-1 font-bold text-[18px]">Assessment workflow, connectivity, visualization, report</h3>
+          <p class="mt-2 text-[13px] leading-5 text-white/70">Guided STS & walk tests, BLE pairing, calibration check, real-time progress, and a colour-coded result card that is always labelled as screening.</p>
+          <div class="mt-4 flex flex-wrap gap-2 text-[11px]"><span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/15">PIN + secure storage</span><span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/15">SQLCipher</span><span class="px-2.5 py-1 rounded-full bg-white/10 border border-white/15">Riverpod • GoRouter</span></div>
+          <div class="mt-5 text-[12px] text-white/60">Place real screenshots in <span class="font-mono bg-white/10 px-1.5 py-0.5 rounded">website/public/images/</span> and replace this mockup.</div>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 gap-4">
+        <div class="bg-white rounded-2xl border border-slate-200 p-5 flex gap-4 reveal"><div class="w-10 h-10 rounded-xl bg-brand-50 border border-brand-100 flex items-center justify-center">◈</div><div><div class="font-semibold text-[14px]">Sensor connectivity</div><div class="text-[13px] text-slate-600">BLE scan → pairing → Wi-Fi handoff → calibration gate (PASS required).</div></div></div>
+        <div class="bg-white rounded-2xl border border-slate-200 p-5 flex gap-4 reveal"><div class="w-10 h-10 rounded-xl bg-violet-50 border border-violet-100 flex items-center justify-center">▣</div><div><div class="font-semibold text-[14px]">Data visualization</div><div class="text-[13px] text-slate-600">Session timeline, feature charts, risk history & trends per patient.</div></div></div>
+        <div class="bg-white rounded-2xl border border-slate-200 p-5 flex gap-4 reveal"><div class="w-10 h-10 rounded-xl bg-emerald-50 border border-emerald-100 flex items-center justify-center">⬢</div><div><div class="font-semibold text-[14px]">Screening report</div><div class="text-[13px] text-slate-600">Tier + confidence + contributors + disclaimer; sync-ready.</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="py-14 lg:py-20">
+  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center"><div class="text-[12px] tracking-[0.14em] font-bold text-brand-700">HOW IT WORKS</div><h2 class="mt-2 text-[28px] font-extrabold tracking-tight">Five steps, a few minutes</h2></div>
+    <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 text-center reveal"><div class="w-12 h-12 mx-auto rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold">01</div><div class="mt-3 font-bold">Wear</div><div class="text-[13px] text-slate-600 mt-1">User wears the knee band, snug but comfortable.</div></div>
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 text-center reveal"><div class="w-12 h-12 mx-auto rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold">02</div><div class="mt-3 font-bold">Connect</div><div class="text-[13px] text-slate-600 mt-1">Band connects to the app via BLE; Wi-Fi SoftAP for waveforms.</div></div>
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 text-center reveal"><div class="w-12 h-12 mx-auto rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold">03</div><div class="mt-3 font-bold">Perform</div><div class="text-[13px] text-slate-600 mt-1">Guided sit-stand-sit & walk protocol (metronome-paced).</div></div>
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 text-center reveal"><div class="w-12 h-12 mx-auto rounded-xl bg-slate-900 text-white flex items-center justify-center font-bold">04</div><div class="mt-3 font-bold">Analyze</div><div class="text-[13px] text-slate-600 mt-1">Phone extracts & fuses biomarkers, runs on-device AI.</div></div>
+      <div class="bg-gradient-to-br from-brand-700 to-teal-600 rounded-2xl p-6 text-center text-white reveal"><div class="w-12 h-12 mx-auto rounded-xl bg-white/15 flex items-center justify-center font-bold">05</div><div class="mt-3 font-bold">Screen</div><div class="text-[13px] mt-1 text-white/90">App shows screening tier — triage aid, not diagnosis.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research" class="py-14 lg:py-20 bg-slate-50 border-y border-slate-100">
+  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-2 gap-8 items-start">
+      <div>
+        <div class="text-[12px] tracking-[0.14em] font-bold text-brand-700">RESEARCH FOUNDATION</div>
+        <h2 class="mt-2 text-[24px] font-extrabold tracking-tight">Acoustic sensing for knee health — peer-reviewed basis</h2>
+        <p class="mt-3 text-[14px] leading-6 text-slate-600">Our approach builds on published work that studies acoustic emissions from the knee during sit-to-stand-sit movements. The paper reports measurable differences in acoustic features between healthy and OA groups — the hierarchy we mirror in the demo model.</p>
+        <div class="mt-6 bg-white rounded-2xl border border-slate-200 p-5">
+          <div class="text-[12px] font-bold tracking-widest text-slate-500">REFERENCE</div>
+          <div class="mt-1 font-semibold text-[15px] leading-5">Verma D.K. et al. (2026), “Knee joint health assessment using acoustic sensors in osteoarthritis: a quantitative and parametric study”, <span class="italic">Med. Eng. Phys.</span> 147, 015006.</div>
+          <div class="mt-2 text-[13px] text-slate-600">H1/H2/H3 vs OA — acoustic energy, duration, hits and amplitude show stepwise separation; used as baseline hierarchy for <span class="font-mono text-[12px] bg-slate-100 px-1 py-0.5 rounded">demo-rule-v1</span> only.</div>
+          <div class="mt-3 inline-flex items-center gap-2 text-[12px] font-semibold text-brand-700">● Clearly labelled demo model • Not clinically validated → replace before real use</div>
+        </div>
+      </div>
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 reveal">
+        <div class="text-[13px] font-bold">What the study found (simplified)</div>
+        <p class="mt-1 text-[12px] text-slate-500">Illustrative — see paper for exact numbers and methods.</p>
+        <div class="mt-5 space-y-4">
+          <div><div class="flex justify-between text-[12px] font-semibold"><span>Acoustic energy</span><span class="font-mono">H3 0.25 fJ → OA 6.5 fJ</span></div><div class="mt-1 h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full w-[92%] bg-gradient-to-r from-brand-600 to-teal-500"></div></div></div>
+          <div><div class="flex justify-between text-[12px] font-semibold"><span>Duration</span><span class="font-mono">0.60 ms → 2.60 ms</span></div><div class="mt-1 h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full w-[78%] bg-violet-500"></div></div></div>
+          <div><div class="flex justify-between text-[12px] font-semibold"><span>Hits</span><span class="font-mono">110 → 217</span></div><div class="mt-1 h-2 bg-slate-100 rounded-full overflow-hidden"><div class="h-full w-[65%] bg-amber-500"></div></div></div>
+        </div>
+        <div class="mt-6 rounded-xl bg-amber-50 border border-amber-200 px-3 py-2 text-[11px] leading-4 text-amber-900">Paper values are baselines for the <b>demo</b> only — quantitative accuracy is behind the hardware/acquisition stage.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOAD -->
+<section id="download" class="py-14 lg:py-20 relative overflow-hidden">
+  <div class="absolute inset-0 -z-10 bg-gradient-to-br from-slate-900 via-slate-900 to-brand-900"></div>
+  <div class="absolute -right-20 -top-20 w-[420px] h-[420px] bg-brand-600/20 rounded-full blur-[60px]"></div>
+  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid lg:grid-cols-[1.05fr_0.95fr] gap-10 items-center">
+      <div class="text-white">
+        <div class="inline-flex items-center gap-2 text-[11px] tracking-widest font-bold bg-white/10 border border-white/15 rounded-full px-3 py-1.5">⬢ SIH 2026 • READY TO INSTALL</div>
+        <h2 class="mt-4 text-[28px] sm:text-[36px] font-extrabold tracking-tight leading-none">Get the<br><span class="text-brand-500">SAMVEDNA</span> App</h2>
+        <p class="mt-3 text-[15px] leading-6 text-white/70 max-w-[560px]">Download the Android application and experience the wearable knee screening system. The APK below is the <span class="text-white font-semibold">actual release build</span> from this repository — no fake file.</p>
+        <div class="mt-7 flex flex-wrap gap-3">
+          <a href="https://github.com/Kanis007/samvedna/releases/download/v1.0.0/SAMVEDNA-v1.0.0.apk" class="inline-flex items-center gap-3 bg-white text-slate-900 px-7 py-3.5 rounded-full font-bold text-[15px] hover:bg-slate-50 transition shadow-[0_8px_24px_rgba(0,0,0,.2)]"><span class="w-8 h-8 rounded-full bg-slate-900 text-white flex items-center justify-center">↓</span> Download APK <span class="hidden sm:inline font-normal text-slate-600">• 75 MB</span></a>
+          <a href="https://github.com/Kanis007/samvedna/releases/tag/v1.0.0" class="inline-flex items-center gap-2 bg-white/10 border border-white/15 text-white px-6 py-3.5 rounded-full font-semibold text-[14px] hover:bg-white/15 transition">Release notes</a>
+        </div>
+        <div class="mt-4 flex flex-wrap gap-3 text-[12px] font-mono">
+          <span class="px-3 py-1.5 rounded-full bg-white/10 border border-white/15 text-white/80">v1.0.0 (2004)</span>
+          <span class="px-3 py-1.5 rounded-full bg-white/10 border border-white/15 text-white/80">universal • 75 MB</span>
+          <span class="px-3 py-1.5 rounded-full bg-white/10 border border-white/15 text-white/80" id="shaBadge">SHA1: loading…</span>
+        </div>
+        <p class="mt-3 text-[11px] text-white/50">If your device needs another ABI, use the Universal APK (all architectures).</p>
+      </div>
+      <div class="bg-white rounded-[20px] p-6 lg:p-7 text-slate-900 reveal">
+        <h3 class="font-bold text-[18px]">How to install</h3>
+        <ol class="mt-4 space-y-3 text-[14px] leading-5">
+          <li class="flex gap-3"><span class="w-7 h-7 rounded-full bg-slate-900 text-white flex items-center justify-center text-[12px] font-bold shrink-0">1</span><span><span class="font-semibold">Download</span> the APK on your Android device.</span></li>
+          <li class="flex gap-3"><span class="w-7 h-7 rounded-full bg-slate-900 text-white flex items-center justify-center text-[12px] font-bold shrink-0">2</span><span>Open the downloaded file from your file manager / notification.</span></li>
+          <li class="flex gap-3"><span class="w-7 h-7 rounded-full bg-slate-900 text-white flex items-center justify-center text-[12px] font-bold shrink-0">3</span><span>Allow <span class="font-semibold">“Install from this source”</span> / <span class="font-semibold">“Install unknown apps”</span> if Android prompts.</span></li>
+          <li class="flex gap-3"><span class="w-7 h-7 rounded-full bg-slate-900 text-white flex items-center justify-center text-[12px] font-bold shrink-0">4</span><span>Tap <span class="font-semibold">Install</span> → <span class="font-semibold">SAMVEDNA</span> appears in your app drawer.</span></li>
+          <li class="flex gap-3"><span class="w-7 h-7 rounded-full bg-slate-900 text-white flex items-center justify-center text-[12px] font-bold shrink-0">5</span><span>Open the app and follow the on-screen setup (PIN, permissions).</span></li>
+        </ol>
+        <div class="mt-5 rounded-xl bg-amber-50 border border-amber-200 px-3 py-3 text-[12px] leading-4 text-amber-900"><span class="font-bold">Android security note:</span> Installing outside Play Store shows a warning — this is normal. The APK is signed with the debug key for SIH demo purposes.</div>
+        <div class="mt-4 rounded-xl bg-slate-50 border border-slate-200 p-4">
+          <div class="text-[13px] font-bold">What you’ll see after install</div>
+          <div class="mt-1 text-[13px] leading-5 text-slate-600">Offline demo with a persistent <span class="font-semibold">DEMO</span> badge. Every simulated result is amber-flagged. No internet is required for screening.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPATIBILITY -->
+<section class="py-12 bg-white border-y border-slate-100">
+  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid md:grid-cols-3 gap-6">
+      <div><h3 class="font-bold">Compatibility</h3><p class="mt-1 text-[13px] text-slate-600">Actual requirements from the app.</p></div>
+      <div class="md:col-span-2 grid sm:grid-cols-3 gap-4 text-[13px]">
+        <div class="rounded-2xl border border-slate-200 p-4"><div class="font-semibold">Android</div><div class="text-slate-600 mt-1">Android 7.0+ — <span class="font-mono">minSdk 24</span>, <span class="font-mono">targetSdk 36</span>, `compileSdk 36` (from <span class="font-mono">build.gradle.kts</span>)</div></div>
+        <div class="rounded-2xl border border-slate-200 p-4"><div class="font-semibold">Connectivity</div><div class="text-slate-600 mt-1">Bluetooth / BLE required for wearable; Wi-Fi SoftAP for high-rate waveforms (auto in Mock mode).</div></div>
+        <div class="rounded-2xl border border-slate-200 p-4"><div class="font-semibold">Hardware</div><div class="text-slate-600 mt-1">Compatible ESP32 knee-band required for real sensor data; otherwise runs fully in Mock (simulated) mode.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM / SIH -->
+<section class="py-14 lg:py-16 bg-slate-50">
+  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col lg:flex-row justify-between gap-8">
+      <div>
+        <div class="text-[12px] tracking-[0.14em] font-bold text-brand-700">SIH 2026</div>
+        <h2 class="mt-2 text-[24px] font-extrabold tracking-tight">SAMVEDNA • PS 26004</h2>
+        <p class="mt-2 text-[14px] text-slate-600 max-w-[560px]">Built for Smart India Hackathon 2026 — a screening aid to take knee health assessment closer to the community. This website is a companion landing page; the mobile app remains the source of truth.</p>
+        <div class="mt-4 inline-flex items-center gap-2 text-[12px] font-mono bg-white border border-slate-200 rounded-full px-3 py-1.5">Do not invent team members • placeholders below</div>
+      </div>
+      <div class="grid grid-cols-2 gap-4 lg:w-[420px]">
+        <div class="bg-white rounded-2xl border border-slate-200 p-5"><div class="w-10 h-10 rounded-full bg-slate-900 text-white flex items-center justify-center">▣</div><div class="mt-3 font-semibold">Team Lead</div><div class="text-[12px] text-slate-500">— placeholder —</div></div>
+        <div class="bg-white rounded-2xl border border-slate-200 p-5"><div class="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center">◈</div><div class="mt-3 font-semibold">Wearable / ESP32</div><div class="text-[12px] text-slate-500">— placeholder —</div></div>
+        <div class="bg-white rounded-2xl border border-slate-200 p-5"><div class="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center">✦</div><div class="mt-3 font-semibold">AI / Fusion</div><div class="text-[12px] text-slate-500">— placeholder —</div></div>
+        <div class="bg-white rounded-2xl border border-slate-200 p-5"><div class="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center">▣</div><div class="mt-3 font-semibold">Mobile App</div><div class="text-[12px] text-slate-500">— placeholder —</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="bg-slate-900 text-white">
+  <div class="max-w-[1160px] mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="grid md:grid-cols-4 gap-8">
+      <div>
+        <div class="flex items-center gap-3"><div class="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">◈</div><div class="font-extrabold">SAMVEDNA</div></div>
+        <p class="mt-2 text-[13px] leading-5 text-white/60">AI-assisted wearable screening for early knee OA risk — offline-first, built for Bharat. SIH 2026 PS 26004.</p>
+        <div class="mt-3 text-[12px] font-mono text-white/40">v1.0.0+2004 • demo-rule-v1</div>
+      </div>
+      <div><div class="font-semibold text-[13px]">Navigate</div><div class="mt-3 space-y-2 text-[13px] text-white/70"><a href="#problem" class="block hover:text-white">Problem</a><a href="#solution" class="block hover:text-white">Solution</a><a href="#wearable" class="block hover:text-white">Wearable</a><a href="#mobile" class="block hover:text-white">App</a><a href="#research" class="block hover:text-white">Research</a></div></div>
+      <div><div class="font-semibold text-[13px]">Download</div><div class="mt-3 space-y-2 text-[13px] text-white/70"><a href="https://github.com/Kanis007/samvedna/releases/download/v1.0.0/SAMVEDNA-v1.0.0.apk" class="block hover:text-white">Download APK (universal, 75 MB)</a><a href="https://github.com/Kanis007/samvedna/releases/tag/v1.0.0" class="block hover:text-white">Release notes &amp; checksums</a><a href="#download" class="block hover:text-white">Installation guide</a></div></div>
+      <div><div class="font-semibold text-[13px]">Reference</div><div class="mt-3 text-[12px] leading-5 text-white/60">Verma et al. (2026) Med. Eng. Phys. 147 — Knee joint health assessment using acoustic sensors. Screening aid only — not a medical device.</div></div>
+    </div>
+    <div class="mt-8 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between gap-3 text-[12px] text-white/50"><span>© 2026 SAMVEDNA • SIH 2026 • Built with Flutter & ESP32</span><span>Offline-first • Encrypted • Mock/Real seam</span></div>
+  </div>
+</footer>
+
+<script>
+// mobile menu
+document.getElementById('menuBtn').addEventListener('click',()=>document.getElementById('mobileMenu').classList.toggle('hidden'));
+// reveal on scroll
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+// nav shadow on scroll
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>{nav.classList.toggle('shadow-sm',scrollY>8)});
+// release SHA256 for the published APK
+const sha256='ec139199c993474d17cc5cd5cde0012446c36f675721548395300305305645dd';
+document.getElementById('shaBadge').textContent='SHA256: '+sha256.slice(0,12)+'…';
+// smooth close mobile menu on link click
+document.querySelectorAll('#mobileMenu a').forEach(a=>a.addEventListener('click',()=>document.getElementById('mobileMenu').classList.add('hidden')));
+</script>
+</body>
+</html>

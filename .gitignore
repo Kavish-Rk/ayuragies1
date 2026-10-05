@@ -1,0 +1,46 @@
+.venv/
+Dataset/
+node_modules/
+frontend/dist/
+backend/screening.db
+backend/screening.db-*
+*.db
+*.db-*
+*.env
+.env
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+build/
+dist/
+_local_archive/
+openh264.dll.bz2
+test_codec.mp4
+
+# Video recordings: ignore general video files, but keep the packaged clinical sample walk video
+*.mp4
+*.mov
+*.avi
+*.mkv
+*.webm
+!frontend/public/sample_gait_walk.mp4
+
+# Artifacts: ignore raw CSVs/intermediates, but keep the trained model weights and evaluation report
+artifacts/*
+!artifacts/movement_baseline.joblib
+!artifacts/movement_baseline.report.json
+!artifacts/knee_bone_density_model.joblib
+!artifacts/clinical_biomechanical_oa_model.joblib
+!artifacts/clinical_biomechanical_oa_model.report.json
+!artifacts/xray_checkpoint.pth
+!artifacts/xray_model_report.json
+
+# Local revision & expo files (kept local only)
+Overview/
+overview/
+EXPO_PROJECT_OVERVIEW.*
+OA_MODELS_BENCHMARKS_AND_METRICS.xlsx
+PROJECT_LINKS_AND_INFO.txt
+
+artifacts/OrthoNex_IEEE_Paper.tex

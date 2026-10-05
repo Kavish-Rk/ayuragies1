@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="gradDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#1B4332"/>
+      <stop offset="100%" stopColor="#134E4A"/>
+    </linearGradient>
+    <linearGradient id="gradMint" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stopColor="#10B981"/>
+      <stop offset="100%" stopColor="#D1FAE5"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <rect width="200" height="200" fill="transparent"/>
+
+  <g transform="translate(100, 100)">
+    <path d="M 0 -50 L 30 30 C 35 45 25 55 12 55 L 8 55 C -5 55 -10 45 -5 30 Z" fill="url(#gradDark)" />
+    <path d="M 0 -50 L -30 30 C -35 45 -25 55 -12 55 L -8 55 C 5 55 10 45 5 30 Z" fill="#134E4A" />
+    <circle cx="0" cy="10" r="14" fill="url(#gradDark)" stroke="#FAFAF5" strokeWidth="4" />
+    <circle cx="0" cy="10" r="6" fill="#D1FAE5" />
+    <ellipse cx="0" cy="0" rx="55" ry="25" fill="none" stroke="url(#gradMint)" strokeWidth="3" transform="rotate(-15)" strokeDasharray="200" strokeDashoffset="30"/>
+    <circle cx="-45" cy="14" r="5" fill="#fde047" stroke="#ffffff" strokeWidth="1.5" filter="url(#glow)"/>
+  </g>
+</svg>
