@@ -109,11 +109,7 @@ export default function CameraViewport({ camera, hideGuides }) {
   return (
     <div className="relative w-full h-full overflow-hidden flex items-center justify-center bg-black/90">
       <video
-        ref={(el) => {
-          if (el && camera.videoElement !== el) {
-            camera.setVideoElement(el);
-          }
-        }}
+        ref={camera.webcamVideoRef}
         autoPlay
         playsInline
         muted
